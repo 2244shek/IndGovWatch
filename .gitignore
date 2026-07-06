@@ -1,0 +1,69 @@
+# ==============================
+# Environment / secrets
+# ==============================
+.env
+.env.*
+!.env.example
+
+# ==============================
+# Python (backend)
+# ==============================
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.eggs/
+venv/
+venv/
+env/
+.Python
+pip-log.txt
+pip-delete-this-directory.txt
+.mypy_cache/
+.pytest_cache/
+.ruff_cache/
+
+# ==============================
+# Databases / local data
+# ==============================
+*.db
+*.sqlite
+*.sqlite3
+backend/regwatch.db
+backend/indgovwatch.db
+backend/chroma_data/
+backend/chroma_data_india/
+backend/data/
+
+# ==============================
+# Node / React (frontend)
+# ==============================
+node_modules/
+dist/
+build/
+.vite/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+.npm/
+
+# ==============================
+# Docker
+# ==============================
+*.pid
+
+# ==============================
+# Editors / OS
+# ==============================
+.vscode/
+.idea/
+*.swp
+.DS_Store
+Thumbs.db
+
+# ==============================
+# Logs
+# ==============================
+*.log
+logs/

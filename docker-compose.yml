@@ -1,0 +1,36 @@
+version: "3.9"
+
+services:
+  backend:
+    build: ./backend
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend:/app
+      - indgovwatch_db:/app/data
+    env_file:
+      - ./backend/.env
+    environment:
+      - DATABASE_URL=sqlite:////app/data/regwatch.db
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    environment:
+      - VITE_API_URL=http://localhost:8000
+    depends_on:
+      - backend
+
+volumes:
+  indgovwatch_db:
+
+# --- Scaling path (not needed to run this project) ---
+# When you outgrow SQLite + APScheduler, swap in:
+#   postgres:   image: postgres:16, replace DATABASE_URL with postgresql://...
+#   airflow:    replace app/scheduler.py's APScheduler job with an Airflow DAG
+#               that calls the same /ingest/run endpoint, or imports app.pipeline directly
+# Both are free/open-source — no code in agents/ or ingestion/ needs to change.

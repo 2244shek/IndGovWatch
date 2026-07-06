@@ -1,0 +1,19 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(venv/Scripts/python.exe -m pip download chroma-hnswlib --no-deps -d /tmp/whltest --python-version 312 --platform win_amd64 --only-binary=:all:)",
+      "Bash(venv/Scripts/python.exe -m pip download chromadb==0.5.5 --no-deps -d /tmp/whltest2 --only-binary=:all:)",
+      "Read(//tmp/**)",
+      "Bash(/d/Projects/indgovwatch/backend/venv/Scripts/python.exe -c ' *)",
+      "Bash(venv/Scripts/python.exe -m pip download chroma-hnswlib==0.7.6 --no-deps -d /tmp/whltest3 --python-version 312 --platform win_amd64 --only-binary=:all:)",
+      "Bash(venv/Scripts/python.exe -m pip download chroma-hnswlib==0.7.6 --no-deps -d /tmp/whltest_linux --python-version 311 --platform manylinux2014_x86_64 --only-binary=:all:)",
+      "Bash(venv/Scripts/python.exe -m pip index versions chroma-hnswlib)",
+      "Bash(venv/Scripts/python.exe -m pip download sgmllib3k --no-deps -d /tmp/whltest_sgml --only-binary=:all:)",
+      "Bash(venv/Scripts/python.exe -m pip download chromadb --no-deps -d /tmp/whltest_latest --only-binary=:all:)",
+      "Bash(\"/c/Program Files \\(x86\\)/Microsoft Visual Studio/Installer/vswhere.exe\" -all -products '*' -property installationPath)",
+      "Bash(where winget *)",
+      "Bash(winget --version)",
+      "PowerShell(winget install --id Microsoft.VisualStudio.2022.BuildTools -e --accept-package-agreements --accept-source-agreements --override \"--wait --quiet --add Microsoft.VisualStudio.Workload.VCTools --includeRecommended --add Microsoft.VisualStudio.Component.Windows11SDK.22621\")"
+    ]
+  }
+}
