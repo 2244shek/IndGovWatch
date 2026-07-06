@@ -1,4 +1,5 @@
 # IndGovWatch
+<img width="1918" height="1005" alt="image" src="https://github.com/user-attachments/assets/8dda7186-bfd8-4fb2-a3cf-afd2e6d88511" />
 
 An agentic pipeline that continuously monitors Indian government sources —
 PIB, RBI, SEBI, and the e-Gazette — detects new notifications, and uses a
