@@ -32,6 +32,8 @@ class Regulation(Base):
     urgency_score = Column(Float, nullable=True)      # 0-1, from triage agent
     summary = Column(Text, nullable=True)
     impact_analysis = Column(Text, nullable=True)
+    easy_view_headline = Column(Text, nullable=True)
+    easy_view_explanation = Column(Text, nullable=True)
     processed = Column(Boolean, default=False)
     reviewed = Column(Boolean, default=False)         # human-in-the-loop approval flag
 

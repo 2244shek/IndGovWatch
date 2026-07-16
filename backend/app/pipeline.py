@@ -75,6 +75,8 @@ def process_unprocessed(db: Session, limit: int = 10) -> int:
         reg.urgency_score = result["urgency_score"]
         reg.impact_analysis = result["impact_analysis"]
         reg.summary = result["summary"]
+        reg.easy_view_headline = result.get("easy_view_headline")
+        reg.easy_view_explanation = result.get("easy_view_explanation")
         reg.processed = True
         db.add(reg)
 

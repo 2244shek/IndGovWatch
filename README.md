@@ -1,5 +1,4 @@
 # IndGovWatch
-<img width="1918" height="1005" alt="image" src="https://github.com/user-attachments/assets/8dda7186-bfd8-4fb2-a3cf-afd2e6d88511" />
 
 An agentic pipeline that continuously monitors Indian government sources —
 PIB, RBI, SEBI, and the e-Gazette — detects new notifications, and uses a
@@ -24,6 +23,9 @@ card, no proprietary service required anywhere in the pipeline.
 6. **Surfaces it all** on a React dashboard: a filterable signal feed, a
    detail view with the full agent reasoning trail, and a human-in-the-loop
    "mark reviewed" action.
+7. **Simplified Public View (Easy View)**: Offers a toggleable "Easy View" showing a jargon-free headline and an everyday citizen impact breakdown explaining who wins, who loses, and daily changes.
+
+<img width="1918" height="1005" alt="Easy View Public Mode" src="docs/images/easy_view.png" />
 
 ## Architecture
 
@@ -96,16 +98,13 @@ it immediately instead of having to check server logs.
 
 ## The agent pipeline
 
-Three specialist agents run as a **LangGraph graph**, not a single prompt —
-each step is independently inspectable, swappable, and logged:
+Specialist agents execute in parallel using a **LangGraph graph** workflow (rather than a single linear prompt) for maximum modularity and concurrency:
 
-- **Triage** — classifies domain (banking & finance, taxation, agriculture,
-  defence, healthcare, education, infrastructure, digital & IT, environment,
-  foreign affairs, other) and urgency (low/medium/high).
-- **Impact Analyst** — queries Chroma for related prior documents, then
-  explains which citizens, businesses, or sectors are concretely affected.
-- **Summarizer** — condenses the above into a 2-sentence, plain-English
-  dashboard alert.
+- **Triage** — Classifies domain and urgency (low/medium/high).
+- **Parallel Track Orchestration**:
+  - **Technical Track**: `Impact Analyst` (queries Chroma RAG for past document context) -> `Summarizer` (condenses technical actions).
+  - **Public Translation Track**: `Citizen Impact Agent` (jargon-free explanation of winners, losers, and next-day changes) + `Layman Explainer Agent` (catchy lay headline).
+- **Join**: Merges outputs from both tracks cleanly.
 
 Every step's input and output is persisted to `AgentRun` — an immutable audit
 record of exactly what each agent saw and said, viewable per-document in the
@@ -138,6 +137,16 @@ human-in-the-loop by design, not automation all the way down.
 1. Install from https://ollama.com
 2. Run `ollama pull llama3.1`
 3. In `backend/.env` set `LLM_PROVIDER=ollama`
+
+**Option C — Nvidia NIM (DeepSeek v4 Pro, fully free):**
+1. Sign up at https://integrate.api.nvidia.com
+2. Generate a free API key.
+3. In `backend/.env` set:
+   ```bash
+   LLM_PROVIDER=nvidia
+   NVIDIA_API_KEY=nvapi-your-key
+   NVIDIA_MODEL=deepseek-ai/deepseek-v4-pro
+   ```
 
 ### 2. Configure environment
 

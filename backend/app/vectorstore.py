@@ -3,11 +3,29 @@ Free, fully local vector store: Chroma runs embedded (no server, no cost) and
 uses sentence-transformers' all-MiniLM-L6-v2 for embeddings (downloaded once,
 runs on CPU, no API calls).
 """
+import posthog
+
+# Workaround for posthog signature mismatch crash in chromadb telemetry
+_original_capture = posthog.capture
+def _safe_capture(*args, **kwargs):
+    if getattr(posthog, "disabled", False):
+        return None
+    try:
+        if len(args) >= 3:
+            return _original_capture(event=args[1], distinct_id=args[0], properties=args[2], **kwargs)
+        return _original_capture(*args, **kwargs)
+    except Exception:
+        return None
+posthog.capture = _safe_capture
+
 import chromadb
 from chromadb.utils import embedding_functions
 from app.config import settings
 
-_client = chromadb.PersistentClient(path=settings.chroma_persist_dir)
+_client = chromadb.PersistentClient(
+    path=settings.chroma_persist_dir,
+    settings=chromadb.Settings(anonymized_telemetry=False)
+)
 
 _embedder = embedding_functions.SentenceTransformerEmbeddingFunction(
     model_name="all-MiniLM-L6-v2"

@@ -85,7 +85,7 @@ def _parse_fallback_text(soup: BeautifulSoup) -> list[dict]:
 
 def fetch_recent_documents(base_url: str | None = None, max_items: int = 15) -> list[dict]:
     url = base_url or settings.egazette_url
-    with httpx.Client(timeout=30, headers=HEADERS, follow_redirects=True) as client:
+    with httpx.Client(timeout=30, headers=HEADERS, follow_redirects=True, verify=False) as client:
         resp = client.get(url)
         resp.raise_for_status()  # surfaces 403/blocked responses instead of swallowing them
 

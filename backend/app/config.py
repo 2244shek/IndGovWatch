@@ -17,7 +17,7 @@ class Settings(BaseSettings):
     # --- Vector store ---
     chroma_persist_dir: str = "./chroma_data_india"
 
-    # --- LLM provider: "groq" or "ollama" ---
+    # --- LLM provider: "groq", "ollama", or "nvidia" ---
     llm_provider: str = "groq"
     groq_api_key: str = ""            # get free at console.groq.com
     groq_model: str = "llama-3.1-8b-instant"
@@ -25,8 +25,11 @@ class Settings(BaseSettings):
     ollama_base_url: str = "http://localhost:11434"
     ollama_model: str = "llama3.1"
 
+    nvidia_api_key: str = ""
+    nvidia_model: str = "deepseek-ai/deepseek-v4-pro"
+
     # --- Ingestion sources (public, free, no key required) ---
-    pib_rss_url: str = "https://www.pib.gov.in/ViewRss.aspx?reg=1&lang=1"          # PIB, all releases, English
+    pib_rss_url: str = "https://www.pib.gov.in/RssMain.aspx?ModId=6&Lang=1&Regid=1&reg=1"          # PIB, all releases, English
     rbi_notifications_rss_url: str = "https://www.rbi.org.in/notifications_rss.xml"  # RBI, binding notifications
     rbi_press_rss_url: str = "https://www.rbi.org.in/pressreleases_rss.xml"          # RBI, press releases
     sebi_rss_url: str = "https://www.sebi.gov.in/sebirss.xml"                        # SEBI, press releases/circulars/orders

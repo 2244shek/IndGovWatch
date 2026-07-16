@@ -13,6 +13,8 @@ class RegulationOut(BaseModel):
     urgency_score: float | None
     summary: str | None
     impact_analysis: str | None
+    easy_view_headline: str | None
+    easy_view_explanation: str | None
     processed: bool
     reviewed: bool
     ingested_at: datetime
@@ -29,8 +31,10 @@ class AgentRunOut(BaseModel):
     model_used: str | None
     created_at: datetime
 
-    class Config:
-        from_attributes = True
+    model_config = {
+        "from_attributes": True,
+        "protected_namespaces": (),
+    }
 
 
 class AlertOut(BaseModel):
